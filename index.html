@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Naveen Vyas | Amazon & E-commerce Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0B1D3A;
+    --navy-mid: #112548;
+    --accent: #00C2FF;
+    --accent2: #FF6B35;
+    --accent3: #00E5A0;
+    --gold: #FFD166;
+    --light: #EEF4FF;
+    --white: #FFFFFF;
+    --muted: #8899BB;
+    --card-bg: rgba(255,255,255,0.04);
+    --border: rgba(0,194,255,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(0,194,255,0.5);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.15s ease;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,194,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,194,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+  }
+  .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, #00C2FF, transparent); top: -150px; right: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, #FF6B35, transparent); bottom: 10%; left: -100px; opacity: 0.2; }
+  .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, #00E5A0, transparent); top: 50%; right: 10%; opacity: 0.15; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(11,29,58,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: none;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    padding: 9px 22px;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+    cursor: none;
+  }
+  .nav-cta:hover { background: var(--accent); color: var(--navy); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 140px 60px 80px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(0,194,255,0.08);
+    border: 1px solid rgba(0,194,255,0.25);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .badge-dot { width: 6px; height: 6px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-name .line2 { color: var(--accent); display: block; }
+
+  .hero-tagline {
+    margin-top: 28px;
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.7;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-tagline strong { color: var(--white); font-weight: 500; }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 44px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--accent);
+    color: var(--navy);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.25s;
+    cursor: none;
+    border: none;
+  }
+  .btn-primary:hover { background: #33CFFF; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,194,255,0.35); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.25s;
+    cursor: none;
+  }
+  .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
+
+  /* METRICS STRIP */
+  .metrics-strip {
+    position: relative;
+    z-index: 1;
+    padding: 0 60px;
+    margin-bottom: 80px;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .metrics-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .metric {
+    padding: 32px 28px;
+    background: var(--navy-mid);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .metric:hover { background: rgba(0,194,255,0.06); }
+  .metric-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+  }
+  .metric-label {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION COMMONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 60px;
+  }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after { content: ''; flex: 1; max-width: 40px; height: 1px; background: var(--accent); opacity: 0.5; }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+  .section-title span { color: var(--accent); }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .skill-card {
+    padding: 28px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .skill-card:hover { border-color: rgba(0,194,255,0.4); transform: translateY(-4px); background: rgba(0,194,255,0.04); }
+  .skill-card:hover::before { opacity: 1; }
+  .skill-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+  .skill-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tag {
+    padding: 3px 10px;
+    background: rgba(0,194,255,0.08);
+    border: 1px solid rgba(0,194,255,0.2);
+    border-radius: 100px;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .skill-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+  /* EXPERIENCE */
+  .exp-timeline { position: relative; }
+  .exp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 10px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .exp-item {
+    padding-left: 36px;
+    margin-bottom: 56px;
+    position: relative;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -5px; top: 8px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 16px rgba(0,194,255,0.6);
+  }
+  .exp-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .exp-date {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0,194,255,0.08);
+    padding: 4px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(0,194,255,0.2);
+  }
+  .exp-company {
+    font-size: 0.8rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+    color: var(--white);
+  }
+  .exp-points { list-style: none; }
+  .exp-points li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 8px;
+    padding-left: 18px;
+    position: relative;
+  }
+  .exp-points li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 0.75rem;
+    top: 2px;
+  }
+  .exp-points li strong { color: var(--white); font-weight: 500; }
+
+  /* BRANDS */
+  .brands-section { background: var(--navy-mid); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .brands-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .brand-chip {
+    padding: 10px 22px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    transition: all 0.25s;
+  }
+  .brand-chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,194,255,0.06); }
+
+  /* TOOLS */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .tool-item {
+    padding: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .tool-item:hover { border-color: var(--accent3); background: rgba(0,229,160,0.04); transform: translateY(-3px); }
+  .tool-icon { font-size: 1.6rem; display: block; margin-bottom: 8px; }
+  .tool-name { font-size: 0.8rem; font-weight: 500; color: var(--white); }
+
+  /* CONTACT */
+  .contact-section {
+    background: linear-gradient(135deg, rgba(0,194,255,0.06), rgba(0,229,160,0.03));
+    border-top: 1px solid var(--border);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .contact-headline {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .contact-headline span { color: var(--accent); }
+  .contact-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 36px; }
+  .contact-items { display: flex; flex-direction: column; gap: 18px; }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.25s;
+    text-decoration: none;
+    cursor: none;
+  }
+  .contact-item:hover { border-color: var(--accent); background: rgba(0,194,255,0.06); transform: translateX(4px); }
+  .contact-item-icon { font-size: 1.3rem; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(0,194,255,0.1); border-radius: 8px; }
+  .contact-item-info { flex: 1; }
+  .contact-item-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 3px; }
+  .contact-item-value { font-size: 0.9rem; font-weight: 500; color: var(--white); }
+  .contact-arrow { color: var(--muted); font-size: 0.9rem; }
+
+  /* AVAILABILITY BADGE */
+  .avail-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.3);
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .avail-dot { width: 8px; height: 8px; background: var(--accent3); border-radius: 50%; animation: pulse 2s infinite; }
+  .avail-text { font-size: 0.8rem; font-weight: 500; color: var(--accent3); letter-spacing: 0.06em; }
+
+  /* FOOTER */
+  footer {
+    padding: 28px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .footer-text { font-size: 0.78rem; color: var(--muted); }
+  .footer-text strong { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Floating ecommerce icons in hero */
+  .hero-visual {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 420px;
+    height: 420px;
+    display: none;
+  }
+  @media (min-width: 1100px) { .hero-visual { display: block; } }
+
+  .float-card {
+    position: absolute;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    backdrop-filter: blur(10px);
+    animation: float 4s ease-in-out infinite;
+  }
+  .float-card:nth-child(2) { animation-delay: 0.8s; }
+  .float-card:nth-child(3) { animation-delay: 1.6s; }
+  .float-card:nth-child(4) { animation-delay: 2.4s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .fc1 { top: 40px; left: 20px; }
+  .fc2 { top: 180px; right: 0; }
+  .fc3 { bottom: 80px; left: 60px; }
+  .fc4 { top: 20px; right: 40px; }
+
+  .fc-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px; }
+  .fc-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--white); }
+  .fc-value.green { color: var(--accent3); }
+  .fc-value.orange { color: var(--accent2); }
+  .fc-sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 120px 24px 60px; }
+    .metrics-strip { padding: 0 24px; }
+    .metrics-inner { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 60px 24px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { padding: 20px 24px; flex-direction: column; gap: 10px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NV<span>.</span></div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#brands">Brands</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="mailto:naveenvyas101@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Open to Remote Opportunities Worldwide
+    </div>
+    <h1 class="hero-name">
+      Naveen<br>
+      <span class="line2">Vyas</span>
+    </h1>
+    <p class="hero-tagline">
+      <strong>Amazon & E-commerce Marketplace Specialist</strong> with 7+ years turning product catalogs into revenue engines. Expert in <strong>Amazon Seller Central, Walmart, Shopify</strong> & multi-channel marketplace operations across US, EU, JP & MX markets.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:naveenvyas101@gmail.com" class="btn-primary">
+        ✉ Get In Touch
+      </a>
+      <a href="https://linkedin.com/in/naveen-vyas-067411b2/" target="_blank" class="btn-secondary">
+        LinkedIn Profile →
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating stats cards -->
+  <div class="hero-visual">
+    <div class="float-card fc1">
+      <div class="fc-label">Annual Sales Managed</div>
+      <div class="fc-value green">$39M+</div>
+      <div class="fc-sub">12% YoY Growth</div>
+    </div>
+    <div class="float-card fc2">
+      <div class="fc-label">Brand Growth</div>
+      <div class="fc-value orange">33%</div>
+      <div class="fc-sub">YoY Revenue Increase</div>
+    </div>
+    <div class="float-card fc3">
+      <div class="fc-label">Experience</div>
+      <div class="fc-value">7+ Years</div>
+      <div class="fc-sub">Marketplace Operations</div>
+    </div>
+    <div class="float-card fc4">
+      <div class="fc-label">Platforms</div>
+      <div class="fc-value">5+</div>
+      <div class="fc-sub">Marketplaces Managed</div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS STRIP -->
+<div class="metrics-strip reveal">
+  <div class="metrics-inner">
+    <div class="metric">
+      <span class="metric-value">$39M+</span>
+      <span class="metric-label">Annual Sales</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">7+</span>
+      <span class="metric-label">Years Experience</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">33%</span>
+      <span class="metric-label">Peak YoY Growth</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">5+</span>
+      <span class="metric-label">Marketplaces</span>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Core Competencies</div>
+    <h2 class="section-title reveal">What I <span>Bring</span> to Your Team</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <span class="skill-icon">📦</span>
+        <div class="skill-title">Catalog & Listing Management</div>
+        <p class="skill-desc">End-to-end catalog operations including parent-child variations, bundles, virtual kits, suppressed listing fixes, and compliance maintenance.</p>
+        <div class="skill-tags">
+          <span class="tag">Parent-Child</span>
+          <span class="tag">Bundles</span>
+          <span class="tag">A+ Content</span>
+          <span class="tag">PDP Optimization</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">🔍</span>
+        <div class="skill-title">SEO & Keyword Strategy</div>
+        <p class="skill-desc">Data-driven keyword research using Helium 10 to optimize listing visibility, improve search rankings, and capture incremental traffic across marketplaces.</p>
+        <div class="skill-tags">
+          <span class="tag">Helium 10</span>
+          <span class="tag">Keyword Research</span>
+          <span class="tag">Listing SEO</span>
+          <span class="tag">Backend Keywords</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">🏪</span>
+        <div class="skill-title">Multi-Channel Marketplace Ops</div>
+        <p class="skill-desc">Managing Amazon (US/EU/JP/MX), Walmart, Shopify, Kroger, UNFI, OpenSky, and Super.com — from listings and pricing to account health and compliance.</p>
+        <div class="skill-tags">
+          <span class="tag">Amazon</span>
+          <span class="tag">Walmart</span>
+          <span class="tag">Shopify</span>
+          <span class="tag">International</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">📦</span>
+        <div class="skill-title">Dropship & Order Management</div>
+        <p class="skill-desc">5+ years managing full-cycle dropship operations — order processing, supplier coordination, tracking updates, SLA adherence, and high-volume case resolution.</p>
+        <div class="skill-tags">
+          <span class="tag">3PL Operations</span>
+          <span class="tag">Order Lifecycle</span>
+          <span class="tag">SLA Management</span>
+          <span class="tag">Case Resolution</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">📊</span>
+        <div class="skill-title">Performance Reporting & KPIs</div>
+        <p class="skill-desc">Building daily/weekly performance dashboards, NCX analysis, return rate monitoring, and translating data into actionable business decisions for leadership.</p>
+        <div class="skill-tags">
+          <span class="tag">NCX Analysis</span>
+          <span class="tag">KPI Tracking</span>
+          <span class="tag">MS Excel</span>
+          <span class="tag">Google Sheets</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <span class="skill-icon">🚚</span>
+        <div class="skill-title">FBA / WFS Fulfillment</div>
+        <p class="skill-desc">End-to-end FBA and Walmart WFS shipment planning, labeling, compliance execution, and inventory coordination to ensure seamless fulfillment operations.</p>
+        <div class="skill-tags">
+          <span class="tag">FBA</span>
+          <span class="tag">WFS</span>
+          <span class="tag">Inventory Coord.</span>
+          <span class="tag">Compliance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background: rgba(0,0,0,0.2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label">Work History</div>
+    <h2 class="section-title reveal">Professional <span>Experience</span></h2>
+    <div class="exp-timeline">
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <span class="exp-date">Apr 2023 – Present</span>
+          <span class="exp-company">De Soto Technologies Pvt Ltd · Ahmedabad</span>
+        </div>
+        <div class="exp-role">Senior Product Specialist / Catalog Specialist</div>
+        <ul class="exp-points">
+          <li>Managed end-to-end marketplace execution for large apparel brands across Amazon & Walmart, contributing to <strong>$39M annual sales with 12% YoY growth</strong></li>
+          <li>Owned full product catalog operations — listing creation, parent-child variations, virtual kits, bundles, and compliance maintenance</li>
+          <li>Conducted listing audits and resolved suppressed listings, backend errors, and policy escalations</li>
+          <li>Performed keyword research using <strong>Helium 10</strong> and optimized SEO-rich PDP content to improve visibility and conversion</li>
+          <li>Coordinated FBA and WFS shipment planning, labeling, and compliance for seamless fulfillment</li>
+          <li>Maintained return rates consistently at <strong>16–18%</strong> through NCX analysis and corrective actions</li>
+          <li>Supported Prime Day and seasonal campaigns ensuring offer compliance and content accuracy</li>
+        </ul>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <span class="exp-date">Jan 2018 – Mar 2023</span>
+          <span class="exp-company">India Informatics · Jodhpur</span>
+        </div>
+        <div class="exp-role">Dropship Operations Manager</div>
+        <ul class="exp-points">
+          <li>Managed end-to-end operations for multiple international e-commerce clients, contributing to <strong>$16M annual sales with 33% YoY growth</strong></li>
+          <li>Handled complete dropship order lifecycle: order processing, supplier coordination, tracking, and issue resolution</li>
+          <li>Managed Shopify store operations including listings, inventory, pricing, orders, and customer communication</li>
+          <li>Supported <strong>Amazon international accounts (EU, JP, MX)</strong> — order management, inventory updates, and support coordination</li>
+          <li>Administered US marketplaces: OpenSky, Super.com, Kroger, UNFI — product uploads, pricing, and monitoring</li>
+          <li>Led a <strong>team of 5 members</strong> managing task allocation, productivity, and performance monitoring</li>
+          <li>Worked with ERP systems: <strong>Microsoft Dynamics GP, HighJump, and EDI</strong></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands" class="brands-section">
+  <div class="section-inner">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-title reveal">Brands & Accounts <span>Managed</span></h2>
+    <div class="brands-grid reveal">
+      <div class="brand-chip">🏥 Cherokee Workwear</div>
+      <div class="brand-chip">💊 Healing Hands</div>
+      <div class="brand-chip">👗 StyleRule</div>
+      <div class="brand-chip">⌚ Jomashop</div>
+      <div class="brand-chip">🌸 PerfumeOutlet</div>
+      <div class="brand-chip">🌐 VirVentures</div>
+      <div class="brand-chip">🧴 PerfumeWorldwide</div>
+      <div class="brand-chip">🤝 PCA (3PL Partner)</div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-inner">
+    <div class="section-label">Tech Stack</div>
+    <h2 class="section-title reveal">Platforms & <span>Tools</span></h2>
+    <div class="tools-grid reveal">
+      <div class="tool-item">
+        <span class="tool-icon">🛒</span>
+        <div class="tool-name">Amazon Seller Central</div>
+      </div>
+      <div class="tool-item">
+        <span class="tool-icon">🏪</span>
+        <div class="tool-name">Walmart Seller Center</div>
+      </div>
+      <div class="tool-item">
+        <span class="tool-icon">🛍️</span>
+        <div class="tool-name">Shopify</div>
+      </div>
+      <div class="tool-item">
+        <span class="tool-icon">🔍</span>
+        <div class="tool-name">Helium 10</div>
+      </div>
+      <div class="tool-item">
+        <span class="tool-icon">📊</span>
+        <div class="tool-name">MS Excel & Google Sheets</div>
+      </div>
+      <div class="tool-item">
+        <span class="tool-icon">⚙️</span>
+        <div class="tool-name">Microsoft Dynamics GP</div>
+      </div>
+      <div class="tool-item">
+        <span class="tool-icon">📦</span>
+        <div class="tool-name">HighJump WMS</div>
+      </div>
+      <div class="tool-item">
+        <span class="tool-icon">🔗</span>
+        <div class="tool-name">EDI Integration</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="avail-badge">
+          <span class="avail-dot"></span>
+          <span class="avail-text">Available for Remote Roles Worldwide</span>
+        </div>
+        <h2 class="contact-headline">Let's Work<br><span>Together</span></h2>
+        <p class="contact-sub">Open to full-time remote positions, contract projects, and freelance collaborations in e-commerce operations, Amazon marketplace management, and catalog strategy — globally.</p>
+        <a href="mailto:naveenvyas101@gmail.com" class="btn-primary" style="display:inline-flex;">
+          ✉ Send Me an Email
+        </a>
+      </div>
+      <div class="contact-items reveal">
+        <a href="mailto:naveenvyas101@gmail.com" class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-value">naveenvyas101@gmail.com</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a href="tel:+919950749103" class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">Phone / WhatsApp</div>
+            <div class="contact-item-value">+91 9950749103</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <a href="https://linkedin.com/in/naveen-vyas-067411b2/" target="_blank" class="contact-item">
+          <div class="contact-item-icon">💼</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-value">naveen-vyas-067411b2</div>
+          </div>
+          <span class="contact-arrow">→</span>
+        </a>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-value">Ahmedabad, Gujarat, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 <strong>Naveen Vyas</strong> · E-commerce Marketplace Specialist</div>
+  <div class="footer-text" style="color: var(--accent); font-size:0.75rem;">Available for Remote Work · Worldwide</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx - 18) * 0.12;
+    ry += (my - ry - 18) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .skill-card, .tool-item, .brand-chip, .metric').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2.5)';
+      ring.style.transform = 'scale(1.5)';
+      ring.style.borderColor = 'rgba(0,194,255,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.transform = 'scale(1)';
+      ring.style.borderColor = 'rgba(0,194,255,0.5)';
+    });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
